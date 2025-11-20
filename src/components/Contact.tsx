@@ -30,34 +30,43 @@ const Contact = () => {
           Let's <span className="gradient-text">Connect</span>
         </h2>
         <p className={`text-xl text-muted-foreground mb-12 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+          I'm always excited to discuss new projects, creative ideas, or opportunities to collaborate and bring your vision to life.
         </p>
 
         <div className={`flex flex-wrap justify-center gap-4 transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <Button
             size="lg"
-            className="bg-gradient-to-r from-accent to-accent-secondary hover:opacity-90 text-accent-foreground shadow-lg glow-effect group"
+            className="bg-gradient-to-r from-accent to-accent-secondary hover:opacity-90 text-accent-foreground shadow-lg glow-effect group hover:scale-105 transition-all"
+            asChild
           >
-            <Mail className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-            Email Me
+            <a href="mailto:contact@marchellstrydom.com">
+              <Mail className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+              Email Me
+            </a>
           </Button>
           
           <Button
             size="lg"
             variant="outline"
-            className="border-2 border-accent/50 hover:bg-accent/10 hover:border-accent group"
+            className="border-2 border-accent/50 hover:bg-accent/10 hover:border-accent group hover:scale-105 transition-all"
+            asChild
           >
-            <Linkedin className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-            LinkedIn
+            <a href="https://www.linkedin.com/in/marchell-strydom-940ab7218" target="_blank" rel="noopener noreferrer">
+              <Linkedin className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+              LinkedIn
+            </a>
           </Button>
           
           <Button
             size="lg"
             variant="outline"
-            className="border-2 border-accent/50 hover:bg-accent/10 hover:border-accent group"
+            className="border-2 border-accent/50 hover:bg-accent/10 hover:border-accent group hover:scale-105 transition-all"
+            asChild
           >
-            <Github className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-            GitHub
+            <a href="https://github.com/SellieInc" target="_blank" rel="noopener noreferrer">
+              <Github className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+              GitHub
+            </a>
           </Button>
         </div>
 

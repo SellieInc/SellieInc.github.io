@@ -48,8 +48,8 @@ const Awards = () => {
                   Patho Solutions • 2022
                 </p>
                 <p className="text-foreground/80 leading-relaxed">
-                  A fun but meaningful recognition for excellence and performance. 
-                  This award celebrates outstanding contributions, dedication, and the positive impact made on the team and organization.
+                  I received this fun but meaningful award for my excellence and performance. 
+                  It recognized my outstanding contributions, dedication, and the positive impact I made on my team and the organization.
                 </p>
               </div>
             </div>

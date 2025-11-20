@@ -38,7 +38,7 @@ const Hero = () => {
             Intermediate Front-End Software Engineer
           </p>
           <p className="text-lg md:text-xl text-foreground/80 mb-12 max-w-3xl mx-auto italic">
-            "Passionate about building beautiful, scalable, high-performance software."
+            "I'm passionate about building beautiful, scalable, high-performance software that makes a difference."
           </p>
           
           <div className="flex flex-wrap gap-4 justify-center">

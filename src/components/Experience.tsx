@@ -28,13 +28,13 @@ const Experience = () => {
       company: "DigiOutsource",
       period: "2025 – Present",
       responsibilities: [
-        "Developing UIs with Angular, React, and React Native",
-        "Performance optimizations",
-        "Debugging & troubleshooting",
-        "UX/UI collaboration",
-        "Clean, maintainable code",
-        "Agile team participation",
-        "Documentation & knowledge sharing"
+        "I develop modern UIs using Angular, React, and React Native",
+        "I optimize performance and improve application speed",
+        "I debug complex issues and troubleshoot production problems",
+        "I collaborate closely with UX/UI designers to create intuitive interfaces",
+        "I write clean, maintainable code that my team can easily work with",
+        "I actively participate in agile ceremonies and sprint planning",
+        "I document my work and share knowledge with the team"
       ]
     },
     {
@@ -42,11 +42,11 @@ const Experience = () => {
       company: "DigiOutsource",
       period: "2024 – 2025",
       responsibilities: [
-        "Designing technical solutions",
-        "Developing new features",
-        "Maintaining existing systems",
-        "Scrum ceremonies",
-        "Code reviews & teamwork"
+        "I designed technical solutions for complex business requirements",
+        "I developed new features from concept to deployment",
+        "I maintained and improved existing systems",
+        "I participated in daily scrums and sprint retrospectives",
+        "I conducted code reviews and mentored junior developers"
       ]
     },
     {
@@ -54,11 +54,11 @@ const Experience = () => {
       company: "Patho Solutions",
       period: "2021 – 2024",
       responsibilities: [
-        "Bug tracking & fixing",
-        "Front-end & back-end work",
-        "Dev-ops tasks (Redis, Typesense, NPM setups)",
-        "New project architecture",
-        "Documentation & planning"
+        "I tracked down and fixed bugs across the full stack",
+        "I worked on both front-end interfaces and back-end APIs",
+        "I handled dev-ops tasks including Redis, Typesense, and NPM configurations",
+        "I contributed to new project architecture and technical planning",
+        "I created comprehensive documentation for future development"
       ]
     }
   ];

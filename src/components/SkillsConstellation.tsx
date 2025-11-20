@@ -1,0 +1,162 @@
+import { useEffect, useRef, useState } from "react";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls, Stars } from "@react-three/drei";
+import * as THREE from "three";
+
+interface SkillNodeProps {
+  position: [number, number, number];
+  label: string;
+  isActive: boolean;
+  onClick: () => void;
+}
+
+const SkillNode = ({ position, label, isActive, onClick }: SkillNodeProps) => {
+  const meshRef = useRef<THREE.Mesh>(null);
+
+  useEffect(() => {
+    if (meshRef.current) {
+      const scale = isActive ? 1.5 : 1;
+      meshRef.current.scale.setScalar(scale);
+    }
+  }, [isActive]);
+
+  return (
+    <mesh ref={meshRef} position={position} onClick={onClick}>
+      <sphereGeometry args={[0.3, 32, 32]} />
+      <meshStandardMaterial
+        color={isActive ? "#00d9ff" : "#4dd0e1"}
+        emissive={isActive ? "#00d9ff" : "#1e40af"}
+        emissiveIntensity={isActive ? 0.8 : 0.3}
+      />
+    </mesh>
+  );
+};
+
+const ConnectionLines = ({ connections, activeSkill }: { connections: [number, number][]; activeSkill: number | null }) => {
+  return (
+    <>
+      {connections.map(([start, end], index) => {
+        const isActive = activeSkill === start || activeSkill === end;
+        return (
+          <line key={index}>
+            <bufferGeometry>
+              <bufferAttribute
+                attach="attributes-position"
+                count={2}
+                array={new Float32Array([0, 0, 0, 1, 1, 1])}
+                itemSize={3}
+              />
+            </bufferGeometry>
+            <lineBasicMaterial
+              color={isActive ? "#00d9ff" : "#4dd0e1"}
+              transparent
+              opacity={isActive ? 0.8 : 0.2}
+            />
+          </line>
+        );
+      })}
+    </>
+  );
+};
+
+const SkillsConstellation = () => {
+  const [activeSkill, setActiveSkill] = useState<number | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  const skills = [
+    { name: "Angular", position: [0, 2, 0] as [number, number, number] },
+    { name: "React", position: [2, 1, 1] as [number, number, number] },
+    { name: "TypeScript", position: [-2, 1, -1] as [number, number, number] },
+    { name: "JavaScript", position: [1, -1, 2] as [number, number, number] },
+    { name: "React Native", position: [-1, -1, -2] as [number, number, number] },
+    { name: "Node.js", position: [0, 0, 0] as [number, number, number] },
+    { name: "HTML/CSS", position: [2, -2, 0] as [number, number, number] },
+    { name: "Git", position: [-2, -2, 1] as [number, number, number] },
+  ];
+
+  const connections: [number, number][] = [
+    [0, 5], [1, 5], [2, 5], [3, 5], [4, 5],
+    [0, 2], [1, 2], [1, 4], [3, 6], [2, 7]
+  ];
+
+  return (
+    <section ref={sectionRef} className="py-24 px-4 bg-background relative overflow-hidden">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 relative z-10">
+          Skills <span className="gradient-text">Constellation</span>
+        </h2>
+        <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto relative z-10">
+          Explore my interconnected skill set in 3D. Click and drag to rotate, scroll to zoom
+        </p>
+
+        <div className={`relative h-[600px] rounded-2xl overflow-hidden border border-border shadow-2xl transition-all duration-1000 ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+          <Canvas camera={{ position: [0, 0, 8], fov: 75 }}>
+            <ambientLight intensity={0.5} />
+            <pointLight position={[10, 10, 10]} intensity={1} />
+            <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+
+            {skills.map((skill, index) => (
+              <SkillNode
+                key={skill.name}
+                position={skill.position}
+                label={skill.name}
+                isActive={activeSkill === index}
+                onClick={() => setActiveSkill(activeSkill === index ? null : index)}
+              />
+            ))}
+
+            <OrbitControls enableZoom={true} enablePan={false} />
+          </Canvas>
+
+          {/* Skill Labels Overlay */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="relative w-full h-full">
+              {skills.map((skill, index) => (
+                <div
+                  key={skill.name}
+                  className={`absolute text-sm font-semibold transition-all duration-300 ${
+                    activeSkill === index
+                      ? "text-accent scale-125"
+                      : "text-foreground/70"
+                  }`}
+                  style={{
+                    left: `${(skill.position[0] + 3) * 12}%`,
+                    top: `${(skill.position[1] + 3) * 12}%`,
+                  }}
+                >
+                  {skill.name}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <p className="text-center text-sm text-muted-foreground mt-6">
+          {activeSkill !== null
+            ? `Viewing connections for ${skills[activeSkill].name}`
+            : "Click any skill to highlight its connections"}
+        </p>
+      </div>
+    </section>
+  );
+};
+
+export default SkillsConstellation;
