@@ -55,13 +55,13 @@ const About = () => {
             </h2>
             <div className="space-y-4 text-foreground/80 leading-relaxed">
               <p>
-                Marchell is a <span className="text-accent font-semibold">passionate, detail-oriented Software Engineer</span> specializing in modern front-end development. He thrives in fast-paced environments, loves solving complex problems, and is committed to writing clean, scalable code.
+                I'm a <span className="text-accent font-semibold">passionate, detail-oriented Software Engineer</span> who specializes in modern front-end development. I thrive in fast-paced environments, love solving complex problems, and I'm committed to writing clean, scalable code that stands the test of time.
               </p>
               <p>
-                He has professional experience in <span className="text-accent font-semibold">Angular, React, and React Native</span>, along with strong TypeScript, JavaScript, and UI engineering skills.
+                I have professional experience building with <span className="text-accent font-semibold">Angular, React, and React Native</span>, along with strong skills in TypeScript, JavaScript, and UI engineering. I love creating interfaces that are both beautiful and performant.
               </p>
               <p>
-                With a background in IT Systems Development and cybersecurity principles, he brings a strong technical foundation and an analytical mindset to every project.
+                With my background in IT Systems Development and cybersecurity principles, I bring a strong technical foundation and an analytical mindset to every project I work on. I'm always learning and pushing myself to grow.
               </p>
             </div>
 
