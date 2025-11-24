@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, Stars } from "@react-three/drei";
+import { OrbitControls, Stars, Html } from "@react-three/drei";
 import * as THREE from "three";
 
 interface SkillNodeProps {
@@ -12,23 +12,51 @@ interface SkillNodeProps {
 
 const SkillNode = ({ position, label, isActive, onClick }: SkillNodeProps) => {
   const meshRef = useRef<THREE.Mesh>(null);
+  const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
     if (meshRef.current) {
-      const scale = isActive ? 1.5 : 1;
+      const scale = isActive ? 1.5 : hovered ? 1.2 : 1;
       meshRef.current.scale.setScalar(scale);
     }
-  }, [isActive]);
+  }, [isActive, hovered]);
 
   return (
-    <mesh ref={meshRef} position={position} onClick={onClick}>
-      <sphereGeometry args={[0.3, 32, 32]} />
-      <meshStandardMaterial
-        color={isActive ? "#00d9ff" : "#4dd0e1"}
-        emissive={isActive ? "#00d9ff" : "#1e40af"}
-        emissiveIntensity={isActive ? 0.8 : 0.3}
-      />
-    </mesh>
+    <group position={position}>
+      <mesh 
+        ref={meshRef} 
+        onClick={onClick}
+        onPointerOver={() => setHovered(true)}
+        onPointerOut={() => setHovered(false)}
+      >
+        <sphereGeometry args={[0.3, 32, 32]} />
+        <meshStandardMaterial
+          color={isActive || hovered ? "#00d9ff" : "#4dd0e1"}
+          emissive={isActive || hovered ? "#00d9ff" : "#1e40af"}
+          emissiveIntensity={isActive ? 0.8 : hovered ? 0.6 : 0.3}
+        />
+      </mesh>
+      <Html
+        center
+        distanceFactor={8}
+        position={[0, -0.6, 0]}
+        style={{
+          transition: 'all 0.3s ease',
+          pointerEvents: 'none'
+        }}
+      >
+        <div 
+          className={`text-sm font-semibold whitespace-nowrap transition-all duration-300 ${
+            isActive ? "text-accent scale-125" : hovered ? "text-accent-glow scale-110" : "text-foreground/70"
+          }`}
+          style={{
+            textShadow: (isActive || hovered) ? '0 0 10px hsl(var(--accent-glow))' : 'none'
+          }}
+        >
+          {label}
+        </div>
+      </Html>
+    </group>
   );
 };
 
@@ -123,30 +151,13 @@ const SkillsConstellation = () => {
               />
             ))}
 
-            <OrbitControls enableZoom={true} enablePan={false} />
+            <OrbitControls 
+              enableZoom={true} 
+              enablePan={false}
+              autoRotate={!activeSkill}
+              autoRotateSpeed={0.5}
+            />
           </Canvas>
-
-          {/* Skill Labels Overlay */}
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="relative w-full h-full">
-              {skills.map((skill, index) => (
-                <div
-                  key={skill.name}
-                  className={`absolute text-sm font-semibold transition-all duration-300 ${
-                    activeSkill === index
-                      ? "text-accent scale-125"
-                      : "text-foreground/70"
-                  }`}
-                  style={{
-                    left: `${(skill.position[0] + 3) * 12}%`,
-                    top: `${(skill.position[1] + 3) * 12}%`,
-                  }}
-                >
-                  {skill.name}
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
 
         <p className="text-center text-sm text-muted-foreground mt-6">
