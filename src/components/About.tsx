@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import profile from "../assets/profile.jpg";
 
 const About = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -38,7 +39,7 @@ const About = () => {
               <div className="w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-accent to-accent-secondary p-1 animate-glow-pulse">
                 <div className="w-full h-full rounded-full bg-muted flex items-center justify-center overflow-hidden">
                   <div className="w-full h-full bg-gradient-to-br from-primary/10 to-accent/10 flex items-center justify-center">
-                    <span className="text-8xl font-bold gradient-text">MS</span>
+                    <img src={profile} alt="Profile" className="w-full h-full object-cover rounded-full" />
                   </div>
                 </div>
               </div>

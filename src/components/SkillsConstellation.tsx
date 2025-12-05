@@ -60,33 +60,6 @@ const SkillNode = ({ position, label, isActive, onClick }: SkillNodeProps) => {
   );
 };
 
-const ConnectionLines = ({ connections, activeSkill }: { connections: [number, number][]; activeSkill: number | null }) => {
-  return (
-    <>
-      {connections.map(([start, end], index) => {
-        const isActive = activeSkill === start || activeSkill === end;
-        return (
-          <line key={index}>
-            <bufferGeometry>
-              <bufferAttribute
-                attach="attributes-position"
-                count={2}
-                array={new Float32Array([0, 0, 0, 1, 1, 1])}
-                itemSize={3}
-              />
-            </bufferGeometry>
-            <lineBasicMaterial
-              color={isActive ? "#00d9ff" : "#4dd0e1"}
-              transparent
-              opacity={isActive ? 0.8 : 0.2}
-            />
-          </line>
-        );
-      })}
-    </>
-  );
-};
-
 const SkillsConstellation = () => {
   const [activeSkill, setActiveSkill] = useState<number | null>(null);
   const [isVisible, setIsVisible] = useState(false);
